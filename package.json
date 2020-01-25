@@ -1,0 +1,16 @@
+{
+  "name": "myfirstelement",
+  "version": "1.0.0",
+  "description": "",
+  "main": "my-element.js",
+  "dependencies": {
+    "@vaadin/vaadin-combo-box": "^5.0.9",
+    "lit-element": "^2.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
