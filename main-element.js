@@ -4,20 +4,9 @@ import './selected-compound'
 class MainElement extends LitElement {
     static get properties() {
         return {
+            hideControl: { type: Boolean },
             selectedItem: {
-                type: Object,
-                hasChanged(newValue, oldValue) {
-                    if (oldValue !== undefined && newValue !== undefined) {
-                        if (newValue.value == 'Carbon') {
-                            console.log(newValue.value);
-                            return true;
-                        }
-                        else {
-                            console.log('Nothing to show');
-                            return false;
-                        }
-                    }
-                }
+                type: Object
             }
         }
     }
@@ -27,12 +16,20 @@ class MainElement extends LitElement {
     }
     render() {
         return html`
-            <my-element @my-event= "${(e) => { this.selectedItem = JSON.parse(e.detail.message); }}">
+            <my-element @my-event= "${(e) => {
+                this.selectedItem = JSON.parse(e.detail.message);
+                if (this.selectedItem.value == 'Carbon') {
+                    this.hideControl = false;
+                }
+                else{
+                    this.hideControl = true;
+                }
+            }}">
             </my-element>
             <!-- <my-element @my-event= "${(e) => console.log(e.detail.message)}"></my-element>  -->
             
             <br />
-            <selected-compound compound = "${JSON.stringify(this.selectedItem)}" ></selected-compound>
+            <selected-compound ?hidden = "${this.hideControl}" compound = "${JSON.stringify(this.selectedItem)}" ></selected-compound>
         `;
     }
 }
