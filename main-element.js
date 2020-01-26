@@ -14,21 +14,21 @@ class MainElement extends LitElement {
         super();
         this.selectedItem = '{"id": 1,"value":"initial value"}';
     }
+    onItemSelection(e){
+        this.selectedItem = JSON.parse(e.detail.message);
+        if (this.selectedItem.value == 'Carbon') {
+            this.hideControl = false;
+        }
+        else{
+            this.hideControl = true;
+        }
+    }
     render() {
         return html`
-            <my-element @my-event= "${(e) => {
-                this.selectedItem = JSON.parse(e.detail.message);
-                if (this.selectedItem.value == 'Carbon') {
-                    this.hideControl = false;
-                }
-                else{
-                    this.hideControl = true;
-                }
-            }}">
+            <my-element @my-event= "${(e) => { this.onItemSelection(e);}}">
             </my-element>
-            <!-- <my-element @my-event= "${(e) => console.log(e.detail.message)}"></my-element>  -->
-            
             <br />
+            <div>Selected compound</div>
             <selected-compound ?hidden = "${this.hideControl}" compound = "${JSON.stringify(this.selectedItem)}" ></selected-compound>
         `;
     }
